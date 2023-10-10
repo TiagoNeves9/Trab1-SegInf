@@ -41,4 +41,8 @@ public class Transaction {
     public void setValue(Float value) {
         this.value = value;
     }
+
+    public String toString(){
+        return origin + "," + destiny + "," + value;
+    }
 }

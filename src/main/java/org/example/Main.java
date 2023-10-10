@@ -1,6 +1,9 @@
 package org.example;
 
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,11 +12,20 @@ public class Main {
             System.out.println(commands);
             System.exit(1);
         }
-
-        String origin = args[1];
-        String destiny = args[2];
-        String value = args[3];
         String filename = args[4];
-
+        Block block = Block.getLastBlockFromFile(filename);
+        try {
+            Integer origin = Integer.parseInt(args[1]);
+            Integer destiny = Integer.parseInt(args[2]);
+            Float value = Float.parseFloat(args[3]);
+            assert block != null;
+            String hash = HashDemo.calculateHash(block.toString());
+            Transaction transaction = new Transaction(origin, destiny, value);
+            String newBlock = new Block(transaction, hash).toString();
+            PrintWriter writer = new PrintWriter(new FileWriter(filename));
+            writer.println(newBlock);
+        } catch (NoSuchAlgorithmException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
