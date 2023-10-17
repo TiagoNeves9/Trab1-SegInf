@@ -23,7 +23,7 @@ public class Main {
                         System.out.println("Blockchain is invalid");
                         return;
                     }
-                    if (previous.getHash().equals("0x0")) {
+                    if (previous.getHash().equals("0x0") && previous.getTransaction().equals(new Transaction())) {
                         genesis = true;
                     }
                     Block lastOldBlock = last;
