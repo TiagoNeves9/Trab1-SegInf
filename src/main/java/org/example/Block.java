@@ -63,4 +63,23 @@ public class Block {
         }
     }
 
+    public static Block lastToFirst (String filename, Block lastLineRead){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            String lastLine = null;
+            while ((line = reader.readLine()) != null) {
+                if(line.equals(lastLineRead.toString())){
+                    lastLine = line;
+                }
+            }
+            if(lastLine!=null){
+                return Block.toBlock(lastLine);
+            }
+            return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
